@@ -1,0 +1,38 @@
+<section class="container-fluid">
+    <p class="display-3 mt-4 mb-4 text-center shadow">Search</p>
+    <div class="d-flex justify-content-center">
+        <form class="row g-3 align-items-center">
+            <div class="col-auto">
+                <input class="form-control" type="text" placeholder="Search..." #newquery [value]="query" (keydown.enter)="submit(newquery.value)">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-sm btn-dark" (click)="submit(newquery.value)"><span class="iconify h5" data-icon="ic:sharp-search" data-inline="false"></span></button>
+            </div>
+        </form>
+    </div>
+    <article *ngIf="results">
+        <div *ngIf="!results.length">
+            No tracks match the term {{query}}
+        </div>
+        <div *ngIf="results.length">
+            <h1 class="lead text-center shadow">Results</h1>
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let t of results">
+                    <div class="thumbnail">
+                        <div class="figure">
+                            <div class="car-img-top">
+                               <img src="{{t.album.images[0].url}}" class="figure-image img-fluid">
+                               <figcaption class="figure-caption">
+                                   <a [routerLink]="['/artists', t.artists[0].id]">{{t.artists[0].name}}</a>
+                               </figcaption> 
+                               <figcaption>
+                                <a [routerLink]="['/tracks', t.id]"></a>
+                               </figcaption>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
